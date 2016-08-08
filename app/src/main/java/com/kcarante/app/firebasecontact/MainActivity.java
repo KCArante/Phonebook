@@ -77,12 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                     ListAdapter adapter = new ListAdapter(MainActivity.this, R.layout.list_view, contactList);
                     mList.setAdapter(adapter);
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
