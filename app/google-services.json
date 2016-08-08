@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "1016600434903",
-    "firebase_url": "https://contacts-3eeb9.firebaseio.com",
-    "project_id": "contacts-3eeb9",
-    "storage_bucket": "contacts-3eeb9.appspot.com"
+    "project_number": "326022044494",
+    "firebase_url": "https://contacts-b8b1d.firebaseio.com",
+    "project_id": "contacts-b8b1d",
+    "storage_bucket": "contacts-b8b1d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1016600434903:android:f1095c343ace3078",
+        "mobilesdk_app_id": "1:326022044494:android:f1095c343ace3078",
         "android_client_info": {
           "package_name": "com.kcarante.app.firebasecontact"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1016600434903-h8jtigof1m5uvefo5n26vodvk320m2il.apps.googleusercontent.com",
+          "client_id": "326022044494-bil64074qb515hs0ao15qkq6qs6tuu6s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA8k_fcQZEV03KQpaLgNdXfjU_afRVZLXI"
+          "current_key": "AIzaSyCdPFXqS32_ncanxrXjCXp82vbMma7mOd4"
         }
       ],
       "services": {

@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Contacts temp = new Contacts();
     private ArrayList<Contacts> contactList;
+    private ArrayList<Contacts> tempContactList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +87,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mAddContact.setOnClickListener(new View.OnClickListener() {
+            String name = mName.getText().toString();
+            String number = mContactNumber.getText().toString();
+
             @Override
             public void onClick(View view) {
                 temp = checkInputs();
-                newContact(temp);
-             }
+                if(!(temp.getName().isEmpty())) {
+                    if(!(temp.getContactNumber().isEmpty())){
+                        tempContactList = findItem(temp);
+                        int counter = 0;
+                        for(int i = 0; i < tempContactList.size(); i++){
+                            if(tempContactList.get(i).getName().equals(name)){
+                                if(tempContactList.get(i).getContactNumber().equals(number)){
+                                    counter++;
+                                }
+                            }
+                        }
+                        if(counter > 0){
+                            newContact(temp);
+                        }
+                        else {
+                            mName.setText("");
+                            mContactNumber.setText("");
+                            Toast.makeText(MainActivity.this, "Contact already exists. Please try again!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Invalid input of name and contact number. Try again!", Toast.LENGTH_SHORT).show();
+                    }
+                }
         });
         mDeleteContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     public Contacts checkInputs() {
@@ -143,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return temp;
-
     }
 
     private void newContact(Contacts temp){
@@ -186,6 +213,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public ArrayList<Contacts> findItem(Contacts temp){
+
+        final Contacts match = temp;
+        final ArrayList<Contacts> contactsArrayList = new ArrayList<>();
+
+        contactReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+
+                while(iterator.hasNext()) {
+                    Contacts contacts = iterator.next().getValue(Contacts.class);
+                    contactsArrayList.add(contacts);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return contactsArrayList;
     }
 }
 
