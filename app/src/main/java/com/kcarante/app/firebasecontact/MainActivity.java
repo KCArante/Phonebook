@@ -95,25 +95,9 @@ public class MainActivity extends AppCompatActivity {
                 temp = checkInputs();
                 if(!(temp.getName().isEmpty())) {
                     if(!(temp.getContactNumber().isEmpty())){
-                        tempContactList = findItem();
-                        int counter = 0;
-                        for(int i = 0; i < contactList.size(); i++){
-                            if(contactList.get(i).getName().equals(name)){
-                                if(contactList.get(i).getContactNumber().equals(number)){
-                                    counter++;
-                                }
-                            }
-                        }
-                        if(counter == 0){
                             newContact(temp);
                         }
-                        else {
-                            mName.setText("");
-                            mContactNumber.setText("");
-                            Toast.makeText(MainActivity.this, "Contact already exists. Please try again!", Toast.LENGTH_SHORT).show();
-                        }
                     }
-                }
                 else {
                     Toast.makeText(MainActivity.this, "Invalid input of name and contact number. Try again!", Toast.LENGTH_SHORT).show();
                     }
