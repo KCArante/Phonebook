@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Contacts temp = new Contacts();
     private ArrayList<Contacts> contactList;
     private ArrayList<Contacts> tempContactList;
+    private ArrayList<Contacts> contactsArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 while(iterator.hasNext()) {
                     Contacts contacts = iterator.next().getValue(Contacts.class);
                     contactList.add(contacts);
+                    contactsArrayList.add(contacts);
 
                     Toast.makeText(MainActivity.this,
                             "Contact " + contacts.getName() + " is viewed!",
@@ -93,16 +95,16 @@ public class MainActivity extends AppCompatActivity {
                 temp = checkInputs();
                 if(!(temp.getName().isEmpty())) {
                     if(!(temp.getContactNumber().isEmpty())){
-                        tempContactList = findItem(temp);
+                        tempContactList = findItem();
                         int counter = 0;
-                        for(int i = 0; i < tempContactList.size(); i++){
-                            if(tempContactList.get(i).getName().equals(name)){
-                                if(tempContactList.get(i).getContactNumber().equals(number)){
+                        for(int i = 0; i < contactList.size(); i++){
+                            if(contactList.get(i).getName().equals(name)){
+                                if(contactList.get(i).getContactNumber().equals(number)){
                                     counter++;
                                 }
                             }
                         }
-                        if(counter > 0){
+                        if(counter == 0){
                             newContact(temp);
                         }
                         else {
@@ -213,19 +215,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public ArrayList<Contacts> findItem(Contacts temp){
+    public ArrayList<Contacts> findItem(){
 
-        final Contacts match = temp;
         final ArrayList<Contacts> contactsArrayList = new ArrayList<>();
 
-        contactReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        contactReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
 
                 while(iterator.hasNext()) {
-                    Contacts contacts = iterator.next().getValue(Contacts.class);
+                    DataSnapshot snapshot = iterator.next();
+                    Contacts contacts = snapshot.getValue(Contacts.class);
+
                     contactsArrayList.add(contacts);
                 }
             }
